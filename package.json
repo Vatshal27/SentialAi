@@ -1,41 +1,41 @@
 {
   "name": "sentinelai",
   "displayName": "secure-dev-tool",
+  "main": "./out/extension.js",
   "description": "AI-powered developer security tool",
   "version": "0.0.1",
   "engines": {
     "vscode": "^1.110.0"
   },
-  "categories": ["Other"],
-
-  "activationEvents": [
-    "onCommand:secure-dev-tool.scan"
+  "categories": [
+    "Other"
   ],
-
-  "main": "./out/extension.js",
-
+  "activationEvents": [
+    "onStartupFinished"
+  ],
   "contributes": {
     "commands": [
       {
-        "command": "secure-dev-tool.scan",
-        "title": "Scan Code for Vulnerabilities"
+        "command": "sentinelai.scan",
+        "title": "SentinelAI: Scan Project"
+      },
+      {
+        "command": "sentinelai.openPanel",
+        "title": "SentinelAI: Open Report"
       }
     ]
   },
-
   "scripts": {
     "vscode:prepublish": "npm run compile",
     "compile": "tsc -p ./",
     "watch": "tsc -watch -p ./"
   },
-
   "devDependencies": {
     "@types/node": "22.x",
     "@types/vscode": "^1.110.0",
     "typescript": "^5.9.3"
   },
-
   "dependencies": {
-    "axios": "^1.13.6"
+    "axios": "^1.15.2"
   }
 }
