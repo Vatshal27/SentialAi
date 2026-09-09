@@ -22,6 +22,18 @@
       {
         "command": "sentinelai.openPanel",
         "title": "SentinelAI: Open Report"
+      },
+      {
+        "command": "sentinelai.sandbox",
+        "title": "SentinelAI: Run Attack Sandbox"
+      },
+      {
+        "command": "sentinelai.detectRuntime",
+        "title": "SentinelAI: Detect Project Runtime"
+      },
+      {
+        "command": "sentinelai.openRuntime",
+        "title": "SentinelAI: Open Project Runtime"
       }
     ]
   },
