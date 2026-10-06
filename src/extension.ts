@@ -556,28 +556,33 @@ export async function activate(
           /*
            * Run sandbox validation.
            */
-          if (
-            message.type ===
-            'runSandbox'
-          ) {
-            const sandboxMode:
-              SandboxMode =
-                message.mode ===
-                'project-validation'
-                  ? 'project-validation'
-                  : 'simulation';
+            if (
+              message.type ===
+              'runSandbox'
+            ) {
+              const sandboxMode:
+                SandboxMode =
+                  message.mode ===
+                  'project-validation'
+                    ? 'project-validation'
+                    : 'simulation';
+              const findings:
+                Finding[] =
+                  Array.isArray(
+                    message.findings
+                  )
+                    ? message.findings
+                    : [];
+              await runSandboxAttack(
+                panel,
+                statusBar,
+                findings,
+                sandboxMode
+              );
+            }
 
-            await runSandboxAttack(
-              panel,
-              statusBar,
-              message.findings || [],
-              sandboxMode
-            );
-          }
+          /* * Stop sandbox */
 
-          /*
-           * Stop sandbox.
-           */
           if (
             message.type ===
             'stopSandbox'
@@ -976,18 +981,7 @@ async function runSandboxAttack(
     return;
   }
 
-  if (
-    !findings.length
-  ) {
-    panel.webview.postMessage({
-      type:
-        'sandboxError',
-      message:
-        'There are no findings to validate.',
-    });
 
-    return;
-  }
 
   statusBar.text =
     '$(debug-alt) SentinelAI: Validation running...';
