@@ -35,7 +35,7 @@ const CODE_EXTENSIONS = [
 ];
 
 const MAX_CHARS_PER_FILE = 8_000;
-const MAX_FILES = 50;
+const MAX_FILES = 200;
 
 const FILE_GLOB =
   '**/*.{js,ts,py,go,php,java,rb,cs,cpp,c,rs,html,css,jsx,tsx,vue,svelte,sql,sh,env}';
@@ -239,18 +239,17 @@ export async function runSandbox(
   mode: SandboxMode = 'simulation',
   targetUrl?: string
 ): Promise<SandboxReport> {
-  const response =
-    await axios.post(
-      `${SERVER_URL}/sandbox/run`,
-      {
-        findings,
-        mode,
-        targetUrl,
-      },
-      {
-        timeout: 660_000,
-      }
-    );
+  const response = await axios.post(
+    `${SERVER_URL}/sandbox/run`,
+    {
+      findings,
+      mode,
+      ...(targetUrl ? { targetUrl } : {}),
+    },
+    {
+      timeout: 10 * 60 * 1000,
+    }
+  );
 
   return response.data;
 }
